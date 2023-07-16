@@ -95,6 +95,14 @@ class _HomeScreenState extends State<HomeScreen> {
     _refreshBudgetEntries();
   }
 
+  Future<void> _signOut() async {
+    try {
+      await Amplify.Auth.signOut();
+    } on AuthException catch (e) {
+      print('Error signing out: $e');
+    }
+  }
+
   Future<void> _refreshBudgetEntries() async {
     try {
       final request = ModelQueries.list(BudgetEntry.classType);
@@ -178,6 +186,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       appBar: AppBar(
         title: const Text('Budget Tracker'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: _signOut,
+          ),
+        ],
       ),
       body: Center(
         child: Padding(
