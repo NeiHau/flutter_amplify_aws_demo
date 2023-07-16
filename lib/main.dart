@@ -4,11 +4,11 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_amplify_awsdemo/amplifyconfiguration.dart';
-import 'package:flutter_amplify_awsdemo/presentation/home/component/manage_Budge_Entry_screen.dart';
-import 'package:flutter_amplify_awsdemo/presentation/home/home_screen.dart';
-import 'package:flutter_amplify_awsdemo/presentation/setting/settings_screen.dart';
 import 'package:go_router/go_router.dart';
 
+import 'fearures/home/presentation/component/manage_Budge_Entry_screen.dart';
+import 'fearures/home/presentation/home_screen.dart';
+import 'fearures/setting/presentation/settings_screen.dart';
 import 'models/ModelProvider.dart';
 
 Future<void> main() async {
