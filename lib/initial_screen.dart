@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'fearures/crypto/presentation/crypto_screen.dart';
+import 'fearures/crypto/presentation/multi_crypto_screen.dart';
 import 'fearures/home/presentation/home_screen.dart';
 import 'fearures/news/presentation/news_screen.dart';
 import 'fearures/setting/presentation/settings_screen.dart';
@@ -18,7 +18,7 @@ class _InitialScreenState extends State<InitialScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     NewsScreen(),
-    BitCoinScreen(),
+    MultiBitCoinScreen(),
     SettingsScreen(),
   ];
 

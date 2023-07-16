@@ -15,7 +15,7 @@ class SettingsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: checkUserInfo,
+              onPressed: () => checkUserInfo(context),
               child: const Text('Get User Info'),
             ),
             ElevatedButton(
@@ -32,18 +32,42 @@ class SettingsScreen extends StatelessWidget {
     try {
       await Amplify.Auth.signOut();
     } on AuthException catch (e) {
-      print('Error signing out: $e');
+      debugPrint('Error signing out: $e');
     }
   }
 
-  Future<void> checkUserInfo() async {
+  Future<void> checkUserInfo(BuildContext context) async {
     try {
       final user = await Amplify.Auth.getCurrentUser();
-      print('User: ${user.username}');
-      print('User: ${user.userId}');
-      print('User: ${user.signInDetails}');
+
+      // Use dialog to show user information
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('User Info'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('Username: ${user.username}'),
+                Text('UserID: ${user.userId}'),
+                Text('SignInDetails: ${user.signInDetails}'),
+              ],
+            ),
+            actions: <Widget>[
+              ElevatedButton(
+                child: const Text('Close'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     } catch (e) {
-      print('Failed to get current user: $e');
+      debugPrint('Failed to get current user: $e');
     }
   }
 }
