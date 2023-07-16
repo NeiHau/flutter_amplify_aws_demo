@@ -48,3 +48,40 @@ class CryptoService {
     }
   }
 }
+
+// priceUSDAsyncValue.when(
+// data: (priceUSD) {
+// // Store the current price for comparison before updating
+// final currentPrice = priceUSD;
+//
+// // Compare the current price with the last price
+// final iconUSD =
+// (previousPriceUSD.state.value ?? 0.0) > currentPrice
+// ? Icons.arrow_downward
+//     : Icons.arrow_upward;
+//
+// // Update the last price
+// previousPriceUSD.state.value = currentPrice;
+//
+// return Row(
+// mainAxisAlignment: MainAxisAlignment.center,
+// children: [
+// Text(
+// 'Bitcoin Price: $currentPrice USD',
+// style: const TextStyle(fontSize: 24),
+// ),
+// const SizedBox(width: 10),
+// Icon(
+// iconUSD,
+// color: iconUSD == Icons.arrow_downward
+// ? Colors.blue
+//     : Colors.red,
+// size: 60.0,
+// ), // Add the arrow icon and specify the color
+// ],
+// );
+// },
+// loading: () => const CircularProgressIndicator(),
+// error: (_, __) =>
+// const Text('Failed to load bitcoin price in USD.'),
+// ),

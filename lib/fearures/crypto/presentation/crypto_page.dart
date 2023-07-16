@@ -12,30 +12,47 @@ class CryptoScreen extends ConsumerWidget {
     final priceUSDAsyncValue = ref.watch(bitcoinPriceUSDProvider);
     final priceJPYAsyncValue = ref.watch(bitcoinPriceJPYProvider);
     final previousPriceUSD = ref.watch(previousPriceUSDProvider.notifier);
+    final previousPriceJPY = ref.watch(previousPriceJPYProvider.notifier);
 
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Text(
+              'Bitcoin Price',
+              style: TextStyle(fontSize: 50),
+            ),
+            const SizedBox(height: 50),
             priceUSDAsyncValue.when(
               data: (priceUSD) {
+                // Store the current price for comparison before updating
+                final currentPrice = priceUSD;
+
                 // Compare the current price with the last price
-                final iconUSD = (previousPriceUSD.state.value ?? 0.0) > priceUSD
-                    ? Icons.arrow_downward
-                    : Icons.arrow_upward;
+                final iconUSD =
+                    (previousPriceUSD.state.value ?? 0.0) > currentPrice
+                        ? Icons.arrow_downward
+                        : Icons.arrow_upward;
 
                 // Update the last price
-                previousPriceUSD.state.value = priceUSD;
+                previousPriceUSD.state.value = currentPrice;
 
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Bitcoin Price: $priceUSD USD',
+                      '$currentPrice USD',
                       style: const TextStyle(fontSize: 24),
                     ),
-                    Icon(iconUSD, color: Colors.red), // Add the arrow icon
+                    const SizedBox(width: 10),
+                    Icon(
+                      iconUSD,
+                      color: iconUSD == Icons.arrow_downward
+                          ? Colors.blue
+                          : Colors.red,
+                      size: 60.0,
+                    ), // Add the arrow icon and specify the color
                   ],
                 );
               },
@@ -43,11 +60,37 @@ class CryptoScreen extends ConsumerWidget {
               error: (_, __) =>
                   const Text('Failed to load bitcoin price in USD.'),
             ),
+            const SizedBox(height: 50),
             priceJPYAsyncValue.when(
-              data: (priceJPY) => Text(
-                'Bitcoin Price: $priceJPY 円',
-                style: const TextStyle(fontSize: 24),
-              ),
+              data: (priceJPY) {
+                // Store the current price for comparison before updating
+                final currentPrice = priceJPY;
+
+                final iconJPY =
+                    (previousPriceJPY.state.value ?? 0.0) > currentPrice
+                        ? Icons.arrow_downward
+                        : Icons.arrow_upward;
+
+                previousPriceJPY.state.value = currentPrice;
+
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '$priceJPY 円',
+                      style: const TextStyle(fontSize: 24),
+                    ),
+                    const SizedBox(width: 10),
+                    Icon(
+                      iconJPY,
+                      color: iconJPY == Icons.arrow_downward
+                          ? Colors.blue
+                          : Colors.red,
+                      size: 60.0,
+                    )
+                  ],
+                );
+              },
               loading: () => const CircularProgressIndicator(),
               error: (_, __) =>
                   const Text('Failed to load bitcoin price in JPY.'),

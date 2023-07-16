@@ -4,6 +4,9 @@ import 'package:rxdart/rxdart.dart';
 final previousPriceUSDProvider =
     StateProvider<InMemoryStore<double>>((_) => InMemoryStore<double>(0.0));
 
+final previousPriceJPYProvider =
+    StateProvider<InMemoryStore<double>>((_) => InMemoryStore<double>(0.0));
+
 class InMemoryStore<T> {
   InMemoryStore(T initial) : _subject = BehaviorSubject<T>.seeded(initial);
 
