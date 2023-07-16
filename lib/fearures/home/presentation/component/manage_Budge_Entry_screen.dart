@@ -1,8 +1,9 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_amplify_awsdemo/models/BudgetEntry.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../data/BudgetEntry.dart';
 
 class ManageBudgetEntryScreen extends StatefulWidget {
   const ManageBudgetEntryScreen({

@@ -1,20 +1,27 @@
+import 'dart:io';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_amplify_awsdemo/amplifyconfiguration.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 
+import 'fearures/home/data/ModelProvider.dart';
 import 'fearures/home/presentation/component/manage_Budge_Entry_screen.dart';
-import 'fearures/home/presentation/home_screen.dart';
-import 'fearures/setting/presentation/settings_screen.dart';
-import 'models/ModelProvider.dart';
+import 'initial_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _configureAmplify();
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 Future<void> _configureAmplify() async {
@@ -36,6 +43,19 @@ Future<void> _configureAmplify() async {
   }
 }
 
+final logger = Logger(
+  level: Level.info,
+  printer: PrettyPrinter(
+    methodCount: 0,
+    errorMethodCount: 8,
+    lineLength: 120,
+    colors: !Platform.isIOS,
+    // iOSで色をつけると表示が崩れるため
+    printEmojis: false,
+    printTime: false,
+  ),
+);
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -44,7 +64,7 @@ class MyApp extends StatelessWidget {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => const HomeScreen(),
+        builder: (context, state) => const InitialScreen(),
       ),
       GoRoute(
         path: '/manage-budget-entry',
@@ -63,70 +83,6 @@ class MyApp extends StatelessWidget {
         routerConfig: _router,
         debugShowCheckedModeBanner: false,
         builder: Authenticator.builder(),
-      ),
-    );
-  }
-}
-
-class LoadingScreen extends StatelessWidget {
-  const LoadingScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-  }
-}
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
-
-  static const List<Widget> _widgetOptions = <Widget>[
-    BudgetTrackerScreen(),
-    SettingsScreen(),
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Setting',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
       ),
     );
   }

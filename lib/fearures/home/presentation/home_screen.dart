@@ -3,16 +3,16 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../models/BudgetEntry.dart';
+import '../data/BudgetEntry.dart';
 
-class BudgetTrackerScreen extends StatefulWidget {
-  const BudgetTrackerScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<BudgetTrackerScreen> createState() => _BudgetTrackerScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _BudgetTrackerScreenState extends State<BudgetTrackerScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   late var _budgetEntries = <BudgetEntry>[];
 
   @override
