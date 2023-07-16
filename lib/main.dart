@@ -10,9 +10,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
-import 'fearures/home/data/ModelProvider.dart';
+import 'fearures/Trade/presentation/user_crypto_entry_screen.dart';
+import 'fearures/home/data/BudgetEntry.dart';
 import 'fearures/home/presentation/component/manage_Budge_Entry_screen.dart';
 import 'initial_screen.dart';
+import 'models/ModelProvider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,6 +73,13 @@ class MyApp extends StatelessWidget {
         name: 'manage',
         builder: (context, state) => ManageBudgetEntryScreen(
           budgetEntry: state.extra as BudgetEntry?,
+        ),
+      ),
+      GoRoute(
+        path: '/crypto-screen-entry',
+        name: 'crypto',
+        builder: (context, state) => UserCryptoEntryScreen(
+          user: state.extra as User?,
         ),
       ),
     ],

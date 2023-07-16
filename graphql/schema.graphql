@@ -8,3 +8,18 @@ type BudgetEntry @model @auth(rules: [{ allow: owner }]) {
   description: String
   amount: Float!
 }
+
+type User @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String!
+  age: Int!
+  gender: String!
+  assets: Float!
+}
+
+type BitcoinPrice @model {
+  id: ID!
+  priceUSD: Float!
+  priceJPY: Float!
+  timestamp: AWSDateTime!
+}
