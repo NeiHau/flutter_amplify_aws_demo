@@ -3,7 +3,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../models/BudgetEntry.dart';
+import '../../models/BudgetEntry.dart';
 
 class BudgetTrackerScreen extends StatefulWidget {
   const BudgetTrackerScreen({super.key});
