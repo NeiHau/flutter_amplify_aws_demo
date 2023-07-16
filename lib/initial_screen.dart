@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'fearures/Trade/presentation/crypto_screen.dart';
+import 'fearures/crypto/presentation/crypto_screen.dart';
 import 'fearures/home/presentation/home_screen.dart';
+import 'fearures/news/presentation/news_screen.dart';
 import 'fearures/setting/presentation/settings_screen.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -16,8 +17,9 @@ class _InitialScreenState extends State<InitialScreen> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    SettingsScreen(),
+    NewsScreen(),
     BitCoinScreen(),
+    SettingsScreen(),
   ];
 
   @override
@@ -44,16 +46,21 @@ class _InitialScreenState extends State<InitialScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Setting',
+            icon: Icon(Icons.book),
+            label: 'News',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.money),
             label: 'Trade',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Setting',
+          ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
+        unselectedItemColor: Colors.black26,
         onTap: _onItemTapped,
       ),
     );

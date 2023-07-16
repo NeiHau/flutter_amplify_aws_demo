@@ -23,3 +23,18 @@ type BitcoinPrice @model {
   priceJPY: Float!
   timestamp: AWSDateTime!
 }
+
+type News @model @auth(rules: [{ allow: public, operations: [read] }]) {
+  id: ID!
+  title: String!
+  description: String!
+  url: String!
+  source: String!
+  author: String
+  publishedAt: AWSDateTime!
+}
+
+type Subscription {
+  onNewNews: News
+  @aws_subscribe(mutations: ["createNews"])
+}s

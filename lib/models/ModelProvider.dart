@@ -21,20 +21,22 @@
 
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
-import '../fearures/Trade/data/User.dart';
+import '../fearures/crypto/data/User.dart';
 import '../fearures/home/data/BudgetEntry.dart';
 import 'BitcoinPrice.dart';
+import 'News.dart';
 
-export '../fearures/Trade/data/User.dart';
 export 'BitcoinPrice.dart';
+export 'News.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "de8c1f20511695309d573957640a3bec";
+  String version = "1b3e3c4eeb5eba6fa476ff20f6f38ac5";
   @override
   List<amplify_core.ModelSchema> modelSchemas = [
     BitcoinPrice.schema,
     BudgetEntry.schema,
+    News.schema,
     User.schema
   ];
   @override
@@ -49,6 +51,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return BitcoinPrice.classType;
       case "BudgetEntry":
         return BudgetEntry.classType;
+      case "News":
+        return News.classType;
       case "User":
         return User.classType;
       default:

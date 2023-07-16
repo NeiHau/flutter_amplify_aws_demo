@@ -1,9 +1,10 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_amplify_awsdemo/fearures/Trade/data/User.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
+import '../data/User.dart';
 
 class BitCoinScreen extends ConsumerStatefulWidget {
   const BitCoinScreen({Key? key}) : super(key: key);

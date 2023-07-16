@@ -5,12 +5,13 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_amplify_awsdemo/amplifyconfiguration.dart';
+import 'package:flutter_amplify_awsdemo/utils/amplifyconfiguration.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 
-import 'fearures/Trade/presentation/user_crypto_entry_screen.dart';
+import 'fearures/crypto/data/User.dart';
+import 'fearures/crypto/presentation/user_crypto_entry_screen.dart';
 import 'fearures/home/data/BudgetEntry.dart';
 import 'fearures/home/presentation/component/manage_Budge_Entry_screen.dart';
 import 'initial_screen.dart';
