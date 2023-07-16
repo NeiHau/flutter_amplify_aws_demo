@@ -1,6 +1,8 @@
-# flutter_amplify_awsdemo
+# flutter_amplify_aws_demo
 
 A new Flutter project.
+
+AWS Amplifyを使用したサンプルアプリ。
 
 ## Getting Started
 
