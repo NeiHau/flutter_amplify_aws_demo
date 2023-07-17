@@ -9,8 +9,10 @@ class MultiBitCoinScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(child: BitCoinScreen()),
+        Expanded(flex: 2, child: BitCoinScreen()),
+        Divider(height: 10),
         Expanded(child: CryptoScreen()),
       ],
     );

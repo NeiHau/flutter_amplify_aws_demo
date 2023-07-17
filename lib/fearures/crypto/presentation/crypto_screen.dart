@@ -120,9 +120,11 @@ class BitCoinScreenState extends ConsumerState<BitCoinScreen> {
         safePrint('errors: ${response.errors}');
         return;
       }
-      setState(() {
-        _userEntries = todos!.whereType<User>().toList();
-      });
+      if (mounted) {
+        setState(() {
+          _userEntries = todos!.whereType<User>().toList();
+        });
+      }
     } on ApiException catch (e) {
       safePrint('Query failed: $e');
     }

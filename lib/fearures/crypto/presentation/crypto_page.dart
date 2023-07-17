@@ -4,13 +4,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../utils/in_memory_store.dart';
 import '../client/crypto_client.dart';
 
-class CryptoScreen extends ConsumerWidget {
+class CryptoScreen extends ConsumerStatefulWidget {
   const CryptoScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  CryptoScreenState createState() => CryptoScreenState();
+}
+
+class CryptoScreenState extends ConsumerState<CryptoScreen> {
+  @override
+  void dispose() {
+    super.dispose();
+    // ref.watch(previousPriceUSDProvider).close();
+    // ref.watch(previousPriceJPYProvider).close();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final priceUSDAsyncValue = ref.watch(bitcoinPriceUSDProvider);
     final priceJPYAsyncValue = ref.watch(bitcoinPriceJPYProvider);
+
     final previousPriceUSD = ref.watch(previousPriceUSDProvider.notifier);
     final previousPriceJPY = ref.watch(previousPriceJPYProvider.notifier);
 
@@ -21,9 +34,9 @@ class CryptoScreen extends ConsumerWidget {
           children: [
             const Text(
               'Bitcoin Price',
-              style: TextStyle(fontSize: 50),
+              style: TextStyle(fontSize: 40),
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 20),
             priceUSDAsyncValue.when(
               data: (priceUSD) {
                 // Store the current price for comparison before updating
@@ -60,7 +73,7 @@ class CryptoScreen extends ConsumerWidget {
               error: (_, __) =>
                   const Text('Failed to load bitcoin price in USD.'),
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 20),
             priceJPYAsyncValue.when(
               data: (priceJPY) {
                 // Store the current price for comparison before updating
