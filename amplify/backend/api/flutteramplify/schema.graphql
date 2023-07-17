@@ -38,3 +38,11 @@ type Subscription {
   onNewNews: News
     @aws_subscribe(mutations: ["createNews"])
 }
+
+type Reservation @model {
+  id: ID!
+  name: String!
+  date: String!
+  time: String!
+  numberOfGuests: Int!
+}

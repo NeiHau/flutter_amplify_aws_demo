@@ -31,6 +31,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       appBar: AppBar(
         title: const Text('Budget Tracker'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              context.pushNamed('search');
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Padding(
