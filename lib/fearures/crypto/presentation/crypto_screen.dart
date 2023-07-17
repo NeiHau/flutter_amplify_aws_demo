@@ -27,7 +27,7 @@ class BitCoinScreenState extends ConsumerState<BitCoinScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         // Navigate to the page to create new budget entries
-        onPressed: _navigateToUserEntry,
+        onPressed: () => _navigateToUserEntry(context),
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
@@ -82,6 +82,7 @@ class BitCoinScreenState extends ConsumerState<BitCoinScreen> {
                         onDismissed: (_) => _deleteUserEntry(userEntry),
                         child: ListTile(
                           onTap: () => _navigateToUserEntry(
+                            context,
                             userEntry: userEntry,
                           ),
                           title: _buildRow(
@@ -103,7 +104,8 @@ class BitCoinScreenState extends ConsumerState<BitCoinScreen> {
     );
   }
 
-  Future<void> _navigateToUserEntry({User? userEntry}) async {
+  Future<void> _navigateToUserEntry(BuildContext context,
+      {User? userEntry}) async {
     await context.pushNamed('crypto', extra: userEntry);
     // Refresh the entries when returning from the
     // budget entry screen.

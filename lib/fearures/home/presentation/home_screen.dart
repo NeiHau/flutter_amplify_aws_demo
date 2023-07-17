@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         // Navigate to the page to create new budget entries
-        onPressed: _navigateToBudgetEntry,
+        onPressed: () => _navigateToBudgetEntry(context),
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
@@ -88,6 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onDismissed: (_) => _deleteBudgetEntry(budgetEntry),
                         child: ListTile(
                           onTap: () => _navigateToBudgetEntry(
+                            context,
                             budgetEntry: budgetEntry,
                           ),
                           title: _buildRow(
@@ -136,7 +137,8 @@ class _HomeScreenState extends State<HomeScreen> {
     await _refreshBudgetEntries();
   }
 
-  Future<void> _navigateToBudgetEntry({BudgetEntry? budgetEntry}) async {
+  Future<void> _navigateToBudgetEntry(BuildContext context,
+      {BudgetEntry? budgetEntry}) async {
     await context.pushNamed('manage', extra: budgetEntry);
     // Refresh the entries when returning from the
     // budget entry screen.
