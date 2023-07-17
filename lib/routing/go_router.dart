@@ -1,11 +1,11 @@
 import 'package:go_router/go_router.dart';
 
-import '../fearures/crypto/data/User.dart';
 import '../fearures/crypto/presentation/user_crypto_entry_screen.dart';
-import '../fearures/home/data/BudgetEntry.dart';
 import '../fearures/home/presentation/component/manage_Budge_Entry_screen.dart';
 import '../fearures/search/presentation/search_screen.dart';
 import '../initial_screen.dart';
+import '../models/BudgetEntry.dart';
+import '../models/User.dart';
 
 class GoRouterManager {
   // GoRouter configuration

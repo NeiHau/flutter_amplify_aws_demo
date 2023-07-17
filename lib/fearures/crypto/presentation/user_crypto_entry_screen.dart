@@ -3,7 +3,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../data/User.dart';
+import '../../../models/User.dart';
 
 class UserCryptoEntryScreen extends StatefulWidget {
   const UserCryptoEntryScreen({required this.user, super.key});

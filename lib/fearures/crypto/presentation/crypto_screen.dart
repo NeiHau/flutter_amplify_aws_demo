@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../data/User.dart';
+import '../../../models/User.dart';
 
 class BitCoinScreen extends ConsumerStatefulWidget {
   const BitCoinScreen({Key? key}) : super(key: key);

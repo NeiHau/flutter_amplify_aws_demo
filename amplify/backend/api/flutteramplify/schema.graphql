@@ -39,10 +39,8 @@ type Subscription {
     @aws_subscribe(mutations: ["createNews"])
 }
 
-type Reservation @model {
+type Reservation @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String!
   date: String!
-  time: String!
-  numberOfGuests: Int!
 }
