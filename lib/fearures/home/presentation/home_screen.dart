@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../models/BudgetEntry.dart';
+import '../repository/budge_methods.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        // Navigate to the page to create new budget entries
         onPressed: () => _navigateToBudgetEntry(context),
         child: const Icon(Icons.add),
       ),
@@ -37,6 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               context.pushNamed('search');
             },
+          ),
+          IconButton(
+            icon: const Icon(Icons.info),
+            onPressed: () => BudgeMethods.promptForEntryId(context),
           ),
         ],
       ),
@@ -55,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       // Show total budget from the list of all BudgetEntries
                       Text(
-                        'Total Budget: \$ ${_calculateTotalBudget(_budgetEntries).toStringAsFixed(2)}',
+                        'Total Budget: \$ ${BudgeMethods.calculateTotalBudget(_budgetEntries).toStringAsFixed(2)}',
                         style: const TextStyle(fontSize: 24),
                       )
                     ],
@@ -133,24 +137,17 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _deleteBudgetEntry(BudgetEntry budgetEntry) async {
     final request = ModelMutations.delete<BudgetEntry>(budgetEntry);
     final response = await Amplify.API.mutate(request: request).response;
+
     safePrint('Delete response: $response');
+
     await _refreshBudgetEntries();
   }
 
   Future<void> _navigateToBudgetEntry(BuildContext context,
       {BudgetEntry? budgetEntry}) async {
     await context.pushNamed('manage', extra: budgetEntry);
-    // Refresh the entries when returning from the
-    // budget entry screen.
-    await _refreshBudgetEntries();
-  }
 
-  double _calculateTotalBudget(List<BudgetEntry?> items) {
-    var totalAmount = 0.0;
-    for (final item in items) {
-      totalAmount += item?.amount ?? 0;
-    }
-    return totalAmount;
+    await _refreshBudgetEntries();
   }
 
   Widget _buildRow({

@@ -34,11 +34,6 @@ type News @model @auth(rules: [{ allow: public, operations: [read] }]) {
   publishedAt: AWSDateTime!
 }
 
-type Subscription {
-  onNewNews: News
-    @aws_subscribe(mutations: ["createNews"])
-}
-
 type Reservation @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String!
