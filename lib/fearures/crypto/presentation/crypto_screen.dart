@@ -43,9 +43,9 @@ class BitCoinScreenState extends ConsumerState<BitCoinScreen> {
                 if (_userEntries.isEmpty)
                   const Text('Use the \u002b sign to add new budget entries')
                 else
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       // Show total budget from the list of all BudgetEntries
                       Text(
                         'Total Budget',
