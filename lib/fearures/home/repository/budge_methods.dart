@@ -5,6 +5,8 @@ import 'package:flutter_amplify_awsdemo/common/app_key.dart';
 
 import '../../../models/BudgetEntry.dart';
 
+enum FilteredBy { id, title }
+
 class BudgeMethods {
   static double calculateTotalBudget(List<BudgetEntry?> items) {
     var totalAmount = 0.0;
@@ -15,10 +17,11 @@ class BudgeMethods {
   }
 
   static void promptForEntryId() {
+    FilteredBy? filteredBy = FilteredBy.id;
+
     debugPrint('Entering _promptForEntryId');
 
     final controller = TextEditingController();
-    String searchType = "id";
 
     showDialog(
       context: AppKey.navigatorKey.currentState!.context,
@@ -32,11 +35,11 @@ class BudgeMethods {
                 ListTile(
                   title: const Text('ID'),
                   leading: Radio(
-                    value: "id",
-                    groupValue: searchType,
-                    onChanged: (String? value) {
+                    value: FilteredBy.id,
+                    groupValue: filteredBy,
+                    onChanged: (FilteredBy? value) {
                       setState(() {
-                        searchType = value!;
+                        filteredBy = value;
                       });
                     },
                   ),
@@ -44,11 +47,11 @@ class BudgeMethods {
                 ListTile(
                   title: const Text('Title'),
                   leading: Radio(
-                    value: "title",
-                    groupValue: searchType,
-                    onChanged: (String? value) {
+                    value: FilteredBy.title,
+                    groupValue: filteredBy,
+                    onChanged: (FilteredBy? value) {
                       setState(() {
-                        searchType = value!;
+                        filteredBy = value;
                       });
                     },
                   ),
@@ -56,7 +59,7 @@ class BudgeMethods {
                 TextField(
                   controller: controller,
                   decoration: InputDecoration(
-                    hintText: searchType == "id"
+                    hintText: filteredBy == FilteredBy.id
                         ? "BudgetEntry ID"
                         : "BudgetEntry Title",
                   ),
@@ -75,9 +78,9 @@ class BudgeMethods {
                 onPressed: () {
                   String searchQuery = controller.text;
                   Navigator.of(context).pop();
-                  if (searchType == "id") {
+                  if (filteredBy == FilteredBy.id) {
                     _readBudgetEntry(searchQuery);
-                  } else if (searchType == "title") {
+                  } else if (filteredBy == FilteredBy.title) {
                     _readBudgetEntriesByTitle(searchQuery);
                   }
                 },
