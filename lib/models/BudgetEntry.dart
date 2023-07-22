@@ -76,22 +76,42 @@ class BudgetEntry extends amplify_core.Model {
     }
   }
   
-  amplify_core.TemporalDateTime? get createdAt {
-    return _createdAt;
+  amplify_core.TemporalDateTime get createdAt {
+    try {
+      return _createdAt!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  amplify_core.TemporalDateTime? get updatedAt {
-    return _updatedAt;
+  amplify_core.TemporalDateTime get updatedAt {
+    try {
+      return _updatedAt!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  const BudgetEntry._internal({required this.id, required title, description, required amount, createdAt, updatedAt}): _title = title, _description = description, _amount = amount, _createdAt = createdAt, _updatedAt = updatedAt;
+  const BudgetEntry._internal({required this.id, required title, description, required amount, required createdAt, required updatedAt}): _title = title, _description = description, _amount = amount, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory BudgetEntry({String? id, required String title, String? description, required double amount}) {
+  factory BudgetEntry({String? id, required String title, String? description, required double amount, required amplify_core.TemporalDateTime createdAt, required amplify_core.TemporalDateTime updatedAt}) {
     return BudgetEntry._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       title: title,
       description: description,
-      amount: amount);
+      amount: amount,
+      createdAt: createdAt,
+      updatedAt: updatedAt);
   }
   
   bool equals(Object other) {
@@ -105,7 +125,9 @@ class BudgetEntry extends amplify_core.Model {
       id == other.id &&
       _title == other._title &&
       _description == other._description &&
-      _amount == other._amount;
+      _amount == other._amount &&
+      _createdAt == other._createdAt &&
+      _updatedAt == other._updatedAt;
   }
   
   @override
@@ -127,24 +149,30 @@ class BudgetEntry extends amplify_core.Model {
     return buffer.toString();
   }
   
-  BudgetEntry copyWith({String? title, String? description, double? amount}) {
+  BudgetEntry copyWith({String? title, String? description, double? amount, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return BudgetEntry._internal(
       id: id,
       title: title ?? this.title,
       description: description ?? this.description,
-      amount: amount ?? this.amount);
+      amount: amount ?? this.amount,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt);
   }
   
   BudgetEntry copyWithModelFieldValues({
     ModelFieldValue<String>? title,
     ModelFieldValue<String?>? description,
-    ModelFieldValue<double>? amount
+    ModelFieldValue<double>? amount,
+    ModelFieldValue<amplify_core.TemporalDateTime>? createdAt,
+    ModelFieldValue<amplify_core.TemporalDateTime>? updatedAt
   }) {
     return BudgetEntry._internal(
       id: id,
       title: title == null ? this.title : title.value,
       description: description == null ? this.description : description.value,
-      amount: amount == null ? this.amount : amount.value
+      amount: amount == null ? this.amount : amount.value,
+      createdAt: createdAt == null ? this.createdAt : createdAt.value,
+      updatedAt: updatedAt == null ? this.updatedAt : updatedAt.value
     );
   }
   
@@ -174,6 +202,8 @@ class BudgetEntry extends amplify_core.Model {
   static final TITLE = amplify_core.QueryField(fieldName: "title");
   static final DESCRIPTION = amplify_core.QueryField(fieldName: "description");
   static final AMOUNT = amplify_core.QueryField(fieldName: "amount");
+  static final CREATEDAT = amplify_core.QueryField(fieldName: "createdAt");
+  static final UPDATEDAT = amplify_core.QueryField(fieldName: "updatedAt");
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "BudgetEntry";
     modelSchemaDefinition.pluralName = "BudgetEntries";
@@ -212,17 +242,15 @@ class BudgetEntry extends amplify_core.Model {
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.double)
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
-      isRequired: false,
-      isReadOnly: true,
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: BudgetEntry.CREATEDAT,
+      isRequired: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
-      isRequired: false,
-      isReadOnly: true,
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: BudgetEntry.UPDATEDAT,
+      isRequired: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
   });

@@ -52,44 +52,6 @@ class _ManageBudgetEntryScreenState extends State<ManageBudgetEntryScreen> {
     super.dispose();
   }
 
-  Future<void> submitForm() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-
-    // If the form is valid, submit the data
-    final title = _titleController.text;
-    final description = _descriptionController.text;
-    final amount = double.parse(_amountController.text);
-
-    if (_isCreate) {
-      // Create a new budget entry
-      final newEntry = BudgetEntry(
-        title: title,
-        description: description.isNotEmpty ? description : null,
-        amount: amount,
-      );
-      final request = ModelMutations.create(newEntry);
-      final response = await Amplify.API.mutate(request: request).response;
-      safePrint('Create result: $response');
-    } else {
-      // Update budgetEntry instead
-      final updateBudgetEntry = _budgetEntry!.copyWith(
-        title: title,
-        description: description.isNotEmpty ? description : null,
-        amount: amount,
-      );
-      final request = ModelMutations.update(updateBudgetEntry);
-      final response = await Amplify.API.mutate(request: request).response;
-      safePrint('Update result: $response');
-    }
-
-    // Navigate back to homepage after create/update executes
-    if (mounted) {
-      context.pop();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -159,5 +121,46 @@ class _ManageBudgetEntryScreenState extends State<ManageBudgetEntryScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> submitForm() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    // If the form is valid, submit the data
+    final title = _titleController.text;
+    final description = _descriptionController.text;
+    final amount = double.parse(_amountController.text);
+    final now = TemporalDateTime.now();
+
+    if (_isCreate) {
+      // Create a new budget entry
+      final newEntry = BudgetEntry(
+        title: title,
+        description: description.isNotEmpty ? description : null,
+        amount: amount,
+        createdAt: now,
+        updatedAt: now,
+      );
+      final request = ModelMutations.create(newEntry);
+      final response = await Amplify.API.mutate(request: request).response;
+      safePrint('Create result: $response');
+    } else {
+      // Update budgetEntry instead
+      final updateBudgetEntry = _budgetEntry!.copyWith(
+        title: title,
+        description: description.isNotEmpty ? description : null,
+        amount: amount,
+      );
+      final request = ModelMutations.update(updateBudgetEntry);
+      final response = await Amplify.API.mutate(request: request).response;
+      safePrint('Update result: $response');
+    }
+
+    // Navigate back to homepage after create/update executes
+    if (mounted) {
+      context.pop();
+    }
   }
 }

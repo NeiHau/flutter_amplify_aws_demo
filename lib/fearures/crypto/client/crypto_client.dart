@@ -4,16 +4,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../main.dart';
 
 final bitcoinPriceUSDProvider = StreamProvider<double>((ref) {
-  return CryptoService().getBitcoinPriceUSD();
+  return CryptoClient().getBitcoinPriceUSD();
 });
 
 final bitcoinPriceJPYProvider = StreamProvider<double>((ref) {
-  return CryptoService().getBitcoinPriceJPY();
+  return CryptoClient().getBitcoinPriceJPY();
 });
 
-class CryptoService {
+class CryptoClient {
   final Dio _dio = Dio();
 
+  // ビットコインのドル価格を取得
   Stream<double> getBitcoinPriceUSD() async* {
     while (true) {
       try {
@@ -31,6 +32,7 @@ class CryptoService {
     }
   }
 
+  // ビットコインの円価格を取得
   Stream<double> getBitcoinPriceJPY() async* {
     while (true) {
       try {

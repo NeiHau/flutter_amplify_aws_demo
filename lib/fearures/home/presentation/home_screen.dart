@@ -124,10 +124,16 @@ class _HomeScreenState extends State<HomeScreen> {
         safePrint('errors: ${response.errors}');
         return;
       }
-      if (mounted) {
-        setState(() {
-          _budgetEntries = todos!.whereType<BudgetEntry>().toList();
-        });
+
+      if (todos != null) {
+        // Sort by 'createdAt', so newer entries come later in the list
+        todos.sort((a, b) => a!.createdAt.compareTo(b!.createdAt));
+
+        if (mounted) {
+          setState(() {
+            _budgetEntries = todos.whereType<BudgetEntry>().toList();
+          });
+        }
       }
     } on ApiException catch (e) {
       safePrint('Query failed: $e');

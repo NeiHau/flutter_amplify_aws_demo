@@ -7,6 +7,8 @@ type BudgetEntry @model @auth(rules: [{ allow: owner }]) {
   title: String!
   description: String
   amount: Float!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime! 
 }
 
 type User @model @auth(rules: [{ allow: owner }]) {
