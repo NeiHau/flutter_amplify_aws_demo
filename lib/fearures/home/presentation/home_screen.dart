@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           IconButton(
             icon: const Icon(Icons.info),
-            onPressed: () => BudgeMethods.promptForEntryId(context),
+            onPressed: () => BudgeMethods.promptForEntryId,
           ),
         ],
       ),

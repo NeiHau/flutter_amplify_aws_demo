@@ -1,3 +1,4 @@
+import 'package:flutter_amplify_awsdemo/common/app_key.dart';
 import 'package:go_router/go_router.dart';
 
 import '../fearures/crypto/presentation/user_crypto_entry_screen.dart';
@@ -10,6 +11,7 @@ import '../models/User.dart';
 class GoRouterManager {
   // GoRouter configuration
   static final router = GoRouter(
+    navigatorKey: AppKey.navigatorKey,
     routes: [
       GoRoute(
         path: '/',

@@ -1,6 +1,7 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_amplify_awsdemo/common/app_key.dart';
 
 import '../../../models/BudgetEntry.dart';
 
@@ -13,36 +14,77 @@ class BudgeMethods {
     return totalAmount;
   }
 
-  static void promptForEntryId(BuildContext context) {
+  static void promptForEntryId() {
     debugPrint('Entering _promptForEntryId');
 
     final controller = TextEditingController();
+    String searchType = "id";
+
     showDialog(
-      context: context,
+      context: AppKey.navigatorKey.currentState!.context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Enter BudgetEntry ID'),
-          content: TextField(
-            controller: controller,
-            decoration: const InputDecoration(hintText: "BudgetEntry ID"),
-          ),
-          actions: [
-            TextButton(
-              child: const Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+        return StatefulBuilder(builder: (context, setState) {
+          return AlertDialog(
+            title: const Text('Enter BudgetEntry ID or Title'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  title: const Text('ID'),
+                  leading: Radio(
+                    value: "id",
+                    groupValue: searchType,
+                    onChanged: (String? value) {
+                      setState(() {
+                        searchType = value!;
+                      });
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: const Text('Title'),
+                  leading: Radio(
+                    value: "title",
+                    groupValue: searchType,
+                    onChanged: (String? value) {
+                      setState(() {
+                        searchType = value!;
+                      });
+                    },
+                  ),
+                ),
+                TextField(
+                  controller: controller,
+                  decoration: InputDecoration(
+                    hintText: searchType == "id"
+                        ? "BudgetEntry ID"
+                        : "BudgetEntry Title",
+                  ),
+                ),
+              ],
             ),
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () {
-                String id = controller.text;
-                Navigator.of(context).pop();
-                _readBudgetEntriesByTitle(id);
-              },
-            ),
-          ],
-        );
+            actions: [
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  String searchQuery = controller.text;
+                  Navigator.of(context).pop();
+                  if (searchType == "id") {
+                    _readBudgetEntry(searchQuery);
+                  } else if (searchType == "title") {
+                    _readBudgetEntriesByTitle(searchQuery);
+                  }
+                },
+              ),
+            ],
+          );
+        });
       },
     );
   }
