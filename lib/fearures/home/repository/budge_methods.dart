@@ -91,6 +91,7 @@ class BudgeMethods {
   }
 
   // IDで検索
+  // get() -> 今のところIDのみでしかフィルターをかけられない。
   static Future<BudgetEntry?> _readBudgetEntry(String entryId) async {
     try {
       final request = ModelQueries.get(
@@ -120,6 +121,7 @@ class BudgeMethods {
   }
 
   // Titleで検索
+  // list() -> ID以外のプロパティでフィルターをかけることができる。
   static Future<List<BudgetEntry?>?> _readBudgetEntriesByTitle(
       String title) async {
     try {
