@@ -38,9 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
               context.pushNamed('search');
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.info),
-            onPressed: () => BudgeMethods.promptForEntryId,
+          const IconButton(
+            icon: Icon(Icons.info),
+            onPressed: BudgeMethods.promptForEntryId,
           ),
         ],
       ),
