@@ -5,6 +5,7 @@ import 'package:flutter_amplify_awsdemo/common/app_key.dart';
 
 import '../../../models/BudgetEntry.dart';
 
+// 検索絞り込み条件のカテゴリ
 enum FilteredBy { id, title }
 
 class BudgeMethods {
@@ -17,11 +18,8 @@ class BudgeMethods {
   }
 
   static void promptForEntryId() {
-    FilteredBy? filteredBy = FilteredBy.id;
-
-    debugPrint('Entering _promptForEntryId');
-
     final controller = TextEditingController();
+    FilteredBy? filteredBy = FilteredBy.id;
 
     showDialog(
       context: AppKey.navigatorKey.currentState!.context,
@@ -122,7 +120,7 @@ class BudgeMethods {
   }
 
   // Titleで検索
-  static Future<List<BudgetEntry?>> _readBudgetEntriesByTitle(
+  static Future<List<BudgetEntry?>?> _readBudgetEntriesByTitle(
       String title) async {
     try {
       final request = ModelQueries.list(
@@ -133,7 +131,7 @@ class BudgeMethods {
 
       if (response.hasErrors) {
         debugPrint('Failed to get budget entries: ${response.errors}');
-        return [];
+        return null;
       }
 
       final List<BudgetEntry?> budgetEntries = response.data?.items ?? [];
@@ -149,7 +147,7 @@ class BudgeMethods {
       return budgetEntries;
     } on ApiException catch (e) {
       safePrint("Query failed $e");
-      return [];
+      return null;
     }
   }
 }
