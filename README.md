@@ -17,7 +17,8 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+amplify push (-y)  // 編集したGraphQLスキーマを反映させるコマンド　　 
 
-amplify push (-y) 
+amplify codegen models  // 編集したGraphQLスキーマをモデルに反映させるコマンド　　
 
-amplify codegen models
+GraphQLクエリ(自動生成) -> amplify/backend/api/build/schema.graphql
